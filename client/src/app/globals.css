@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-style: normal;
+  font-weight:400;
+}
+/* 
+
+.MuiGrid-container {
+  display: flex;
+ }
+
+ .MuiGrid-item {
+  flex-grow: 1;
+ }
+
+ .footer-social-links{
+  display: flex;
+  align-items: self-end;
+  height: 100%;
+  justify-content:center;
+ }
+
+ .MuiListItemButton-root{
+  justify-content:center;
+ }
+
+ .padding-bottom-0 {
+  padding-bottom: 0 
+ } */
