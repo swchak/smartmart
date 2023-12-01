@@ -1,5 +1,7 @@
 import { DataSource, DataSourceOptions } from "typeorm";
 import { SeederOptions, runSeeders } from "typeorm-extension";
+import UserFactory from "./database/factories/user.factory";
+import UserSeeder from "./database/seeds/user.seeder";
 
 const options: DataSourceOptions & SeederOptions = {
   type: "postgres",
@@ -7,8 +9,8 @@ const options: DataSourceOptions & SeederOptions = {
   username: process.env.DS_USER,
   password: process.env.DS_PASS,
   entities: [process.env.DS_ENTITIES!],
-  seeds: ["src/database/seeds/**/*{.ts,.js}"],
-  factories: ["src/database/factories/**/*{.ts,.js}"],
+  seeds: [UserSeeder],
+  factories: [UserFactory],
   logging: false,
   synchronize: true,
   connectTimeoutMS: 3000,
@@ -16,11 +18,11 @@ const options: DataSourceOptions & SeederOptions = {
 
 const dataSource = new DataSource(options);
 
-
 (async () => {
   try {
     await dataSource.initialize();
     console.log("INFO :: Data Source has been initialized");
+    runSeeders(dataSource);
     // runSeeders(dataSource, {
     //   seeds: ["src/database/seeds/**/*{.ts,.js}"],
     //   factories: ["src/database/factories/**/*{.ts,.js}"],

@@ -14,9 +14,12 @@ class UserSeeder implements Seeder {
         firstName: "Caleb",
         lastName: "Barrows",
         email: "caleb.barrows@gmail.com",
+        password: "p@ssw0rd",
       },
     ]);
     const userFactory = await factoryManager.get(User);
     await userFactory.saveMany(10);
   }
 }
+
+export default UserSeeder;
