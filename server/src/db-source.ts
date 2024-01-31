@@ -9,6 +9,7 @@ const options: DataSourceOptions & SeederOptions = {
   username: process.env.DS_USER,
   password: process.env.DS_PASS,
   entities: [process.env.DS_ENTITIES!],
+  database: process.env.DS_DB,
   seeds: [UserSeeder],
   factories: [UserFactory],
   logging: false,
@@ -21,31 +22,12 @@ const dataSource = new DataSource(options);
 (async () => {
   try {
     await dataSource.initialize();
-    console.log("INFO :: Data Source has been initialized");
+    console.log("INFO :: Data Source has been initialized ");
     runSeeders(dataSource);
-    // runSeeders(dataSource, {
-    //   seeds: ["src/database/seeds/**/*{.ts,.js}"],
-    //   factories: ["src/database/factories/**/*{.ts,.js}"],
-    //   // seeds: [process.env.DS_SEEDS!],
-    //   // factories: [process.env.DS_FACTORIES!],
-    // });
   } catch (err) {
     console.error("ERROR :: Data Source initialization error", err);
     throw err;
   }
-  // try {
-  //   // console.log(dataSource);
-  //   runSeeders(dataSource, {
-  //     seeds: ["src/database/seeds/**/*{.ts,.js}"],
-  //     factories: ["src/database/factories/**/*{.ts,.js}"],
-  //     // seeds: [process.env.DS_SEEDS!],
-  //     // factories: [process.env.DS_FACTORIES!],
-  //   });
-  //   console.log("INFO :: SEED Data Source completed");
-  // } catch (err) {
-  //   console.error("ERROR :: SEED Data Source error", err);
-  //   throw err;
-  // }
 })();
 
 export default dataSource;

@@ -8,7 +8,7 @@ export interface IGetUserAuthInfoRequest extends Request {
   user?: User | null; // or any other type
 }
 
-export const checkAuthState = async (
+export const CheckAuthState = async (
   req: IGetUserAuthInfoRequest,
   res: Response,
   next: Function
@@ -23,7 +23,9 @@ export const checkAuthState = async (
       });
     }
 
-    req.user = await userRepository.findOneBy((payload as JwtPayload).id);
+    req.user = await userRepository.findOneBy({
+      id: (payload as JwtPayload).id,
+    });
     // req = authRequest as Request;
     next();
   } catch (e) {

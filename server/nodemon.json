@@ -1,11 +1,5 @@
 {
-    "ignore": [
-        ".git",
-        "dist/",
-        "coverage/"
-    ],
-    "watch": [
-        "src/*"
-    ],
-    "ext": "js, json, ts"
+   "execMap": {
+        "ts": "ts-node"
+    }
 }

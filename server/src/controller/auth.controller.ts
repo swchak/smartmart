@@ -6,6 +6,7 @@ import { User } from "../database/entities/user.entity";
 import { sign, verify } from "jsonwebtoken";
 import { createSecretKey } from "crypto";
 import { IGetUserAuthInfoRequest } from "../middleware/auth.middleware";
+import { register } from "module";
 
 // REGISTER USER
 export const Register = async (req: Request, res: Response) => {
@@ -74,25 +75,8 @@ export const AuthenticatedUser = async (
   req: IGetUserAuthInfoRequest,
   res: Response
 ) => {
-  console.log("inside autneticated user route");
-
-  // const jwt = req.cookies["jwt"];
-  // // get user id from jwt
-  // const payload: any = verify(jwt, "secretkey");
-
   const { password, ...user } = req.user!;
   res.send(user);
-
-  // if (!payload) {
-  //   return res.status(401).send({
-  //     message: "ERROR :: User unauthenticated!",
-  //   });
-  // }
-  // // return user info  for user id
-  // const user = await dataSource.getRepository(User).findOneBy(payload.id);
-  // const { password, ...userWithoutPassword } = user!;
-
-  // res.send(userWithoutPassword);
 };
 
 export const Logout = async (req: Request, res: Response) => {
@@ -101,4 +85,17 @@ export const Logout = async (req: Request, res: Response) => {
   res.send({
     message: "INFO :: Successfully logged out.",
   });
+};
+
+export const UpdateUserInfo = async (
+  req: IGetUserAuthInfoRequest,
+  res: Response
+) => {
+  //update user info
+  await dataSource.getRepository(User).update(req.user!.id, req.body);
+
+  //return updated user info
+  const user = await dataSource.getRepository(User).findOneBy({ id: req.user!.id });
+  const {password, ...userWithoutPassword} = user!;
+  res.send(userWithoutPassword);
 };
